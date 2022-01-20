@@ -57,7 +57,7 @@
     {
         global $connexion;
 
-        $requete = "SELECT * FROM article WHERE article.titre=? OR article.texte=? OR article.idUsager=?";
+        $requete = "SELECT * FROM article WHERE article.titre=? OR article.texte=? OR article.idUsager=? ORDER BY article.ID DESC";
 
         //exécution de la requête
         $reqPrep = mysqli_prepare($connexion, $requete);
@@ -66,36 +66,28 @@
         $resultat = mysqli_stmt_get_result($reqPrep);
 
         if (mysqli_num_rows($resultat) > 0)
-            return $resultat;
+            while ($rangee = mysqli_fetch_assoc($resultat)) 
+            {
+                echo "<div><h2>" . htmlspecialchars($rangee["titre"]) . "</h2>
+                <p>" . htmlspecialchars($rangee["texte"]) . "</p>
+                <p>" . htmlspecialchars($rangee["idUsager"]) . "</p></div>";
+            }
         else
-            return false;
-    }
-
-    function genereArticlesRechercher($recherche)
-    {
-        global $connexion;
-        $requete = "SELECT * FROM article WHERE article.titre='$recherche' OR article.texte='$recherche' OR article.idUsager='$recherche'";
-        $resultat = mysqli_query($connexion, $requete);
-
-        while ($rangee = mysqli_fetch_assoc($resultat))
-        {
-            echo "<h2>" . htmlspecialchars($rangee["titre"]) . "</h2>";
-            echo "<p>" . htmlspecialchars($rangee["texte"]) . "</p>";
-            echo "<p>" . htmlspecialchars($rangee["idUsager"]) . "</p>";
+        echo "<span>il n'y a pas de résultat à votre recherche</span>";
         }
-    }
+
 
     function genereArticles()
     {
         global $connexion;
-        $requete = "SELECT * FROM article";
+        $requete = "SELECT * FROM article ORDER BY article.ID DESC ";
         $resultat = mysqli_query($connexion, $requete);
 
         while ($rangee = mysqli_fetch_assoc($resultat))
         {
-            echo "<h2>" . htmlspecialchars($rangee["titre"]) . "</h2>";
-            echo "<p>" . htmlspecialchars($rangee["texte"]) . "</p>";
-            echo "<p>" . htmlspecialchars($rangee["idUsager"]) . "</p>";
+            echo "<div><h2>" . htmlspecialchars($rangee["titre"]) . "</h2>
+            <p>" . htmlspecialchars($rangee["texte"]) . "</p>
+            <p>" . htmlspecialchars($rangee["idUsager"]) . "</p></div>";
         }
     }
     
