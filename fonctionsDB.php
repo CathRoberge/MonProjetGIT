@@ -52,6 +52,38 @@
             
         }
     }
+
+    function rechercheArticle($recherche)
+    {
+        global $connexion;
+
+        $requete = "SELECT * FROM article WHERE article.titre=? OR article.texte=? OR article.idUsager=?";
+
+        //exécution de la requête
+        $reqPrep = mysqli_prepare($connexion, $requete);
+        mysqli_stmt_bind_param($reqPrep, 'sss', $recherche, $recherche, $recherche);
+        mysqli_stmt_execute($reqPrep);
+        $resultat = mysqli_stmt_get_result($reqPrep);
+
+        if (mysqli_num_rows($resultat) > 0)
+            return $resultat;
+        else
+            return false;
+    }
+
+    function genereArticles()
+    {
+        global $connexion;
+        $requete = "SELECT * FROM article";
+        $resultat = mysqli_query($connexion, $requete);
+
+        while ($rangee = mysqli_fetch_assoc($resultat))
+        {
+            echo "<h2>" . htmlspecialchars($rangee["titre"]) . "</h2>";
+            echo "<p>" . htmlspecialchars($rangee["texte"]) . "</p>";
+            echo "<p>" . htmlspecialchars($rangee["idUsager"]) . "</p>";
+        }
+    }
     
     
     ?>
