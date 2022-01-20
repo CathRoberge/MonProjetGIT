@@ -1,22 +1,18 @@
 <?php
 //ici j'inclu le fichier des fonctions et connexion à la base de donnée
-    require_once("fonctionsDB.php");
-    $message = "";
+require_once("fonctionsDB.php");
+$message = "";
 
 /* Verfier que l'on arrive bien du formulaire et si celui-ci contient de l'information */
-    if (isset($_POST["rechercher"])) 
-    {
-        if (trim($_POST["recherche"]) != "") 
-        {
-            $recherche = "%" . $_POST["recherche"] . "%";
-            $resultat = rechercheArticle($recherche);
+if (isset($_POST["rechercher"])) {
+    if (trim($_POST["recherche"]) != "") {
+        $recherche = "%" . $_POST["recherche"] . "%";
+        $resultat = rechercheArticle($recherche);
 
-            $resultat = rechercheArticle($resultat);
-            fermer_connexion();
-        } 
-        else
-            $message = "Veuillez entrer une recherche";
-    }
+        $resultat = rechercheArticle($resultat);
+    } else
+        $message = "Veuillez entrer une recherche";
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -24,6 +20,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Page d'affichage des articles</title>
+    <link rel="stylesheet" href="/main.css" />
 </head>
 
 <body>
@@ -42,7 +39,7 @@
     </header>
     <div class="articles">
         <?php
-            genereArticles();
+        genereArticles();
         ?>
     </div>
 </body>

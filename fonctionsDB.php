@@ -71,6 +71,20 @@
             return false;
     }
 
+    function genereArticlesRechercher($recherche)
+    {
+        global $connexion;
+        $requete = "SELECT * FROM article WHERE article.titre='$recherche' OR article.texte='$recherche' OR article.idUsager='$recherche'";
+        $resultat = mysqli_query($connexion, $requete);
+
+        while ($rangee = mysqli_fetch_assoc($resultat))
+        {
+            echo "<h2>" . htmlspecialchars($rangee["titre"]) . "</h2>";
+            echo "<p>" . htmlspecialchars($rangee["texte"]) . "</p>";
+            echo "<p>" . htmlspecialchars($rangee["idUsager"]) . "</p>";
+        }
+    }
+
     function genereArticles()
     {
         global $connexion;
