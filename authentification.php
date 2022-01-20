@@ -6,16 +6,16 @@
     {
         if(!empty($_POST["usager"] && !empty($_POST["password"])))
         {
-            $test = protection($_POST["usager"], $_POST["password"]);
+            $test = login($_POST["usager"], $_POST["password"]);
 
             if($test)
             {
                 header("location: articles.php");
                 die();
             }
-            else
-            $message = "Veuillez entrer un nom d'usager et mot de passe valide";
         }
+        else
+            $message = "Veuillez entrer un nom d'usager et mot de passe valide";
     }
 ?>
 <!DOCTYPE html>
@@ -25,9 +25,9 @@
     <title>Page d'identification</title>
 </head>
 <body>
-    <form action="POST">
+    <form method="POST">
         Nom d'usager : <input type="text" name="usager"><br>
-        Mot de passe : <input type="text" name="password"><br>
+        Mot de passe : <input type="password" name="password"><br>
         <input type="submit" name="connecter" value="connecter">
     </form>
     <?php

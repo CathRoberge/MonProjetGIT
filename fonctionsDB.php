@@ -1,21 +1,28 @@
 <?php
     function connect()
     {
-        // ici on se connecte à la base de données
-        $c = mysqli_connect("localhost", "root", "", "login");
+        //se connecter à la base de données
+        $connexion = mysqli_connect("localhost", "root", "", "tp2");
 
-        if(!$c)
+        if(!$connexion)
         {
-            die("erreur de connexion : " . mysqli_connect_error());
+            trigger_error("Erreur de connexion : " . mysqli_connect_error());
         }
 
-        return $c;
+        mysqli_query($connexion, "SET NAMES 'UTF8'");
+        return $connexion;
     }
 
+    function fermer_connexion()
+    {
+        global $connexion;
+        mysqli_close($connexion);
+    }
+    
     $connexion = connect();
 
     // ici c'est la fonction pour permettre à l'usager de se connecter et de proteger l'usager
-    function protection($usager, $motDePasse)
+    function login($usager, $motDePasse)
     {
         global $connexion;
         // rediriger la requete
