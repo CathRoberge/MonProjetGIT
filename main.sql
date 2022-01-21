@@ -4,7 +4,7 @@ CREATE TABLE usager (
 );
 
 CREATE TABLE article (
-    ID smallint unsigned NOT NULL,
+    ID smallint unsigned NOT NULL AUTO_INCREMENT,
     titre varchar(50) NOT NULL,
     texte text NOT NULL,
     idUsager varchar(20) NOT NULL,
