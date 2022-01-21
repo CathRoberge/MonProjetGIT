@@ -3,6 +3,7 @@ session_start();
 //ici j'inclu le fichier des fonctions et connexion à la base de donnée
 require_once("fonctionsDB.php");
 $message = "";
+$usager = $_SESSION["usager"];
 
 ?>
 <!DOCTYPE html>
@@ -30,12 +31,11 @@ $message = "";
     <p>Bonjour <?= htmlspecialchars($_SESSION["usager"]) ?></p>
     <div class="articles">
         <?php
-            if($_SESSION["usager"])
-        ?>
-        <div>
-            <h3><a href="ajoutArticle.php">Ajouter un article</a></h3>
-        </div>
-        <?php
+            if(!empty($_SESSION["usager"]))
+            {
+                echo "<div><h3><a href='ajoutArticle.php'>Ajouter un article</a></h3></div>";
+            }
+
         /* Verfier que l'on arrive bien du formulaire et si celui-ci contient de l'information */
         if (isset($_POST["rechercher"])) {
             if (trim($_POST["recherche"]) != "") {
@@ -43,7 +43,7 @@ $message = "";
                 rechercheArticle($_POST["recherche"]);
             } else echo "<span>veuillez entrer une recherche</span>";
         } else
-            genereArticles();
+            genereArticles($usager);
         ?>
     </div>
 </body>
