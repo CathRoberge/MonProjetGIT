@@ -12,14 +12,12 @@ if (isset($_POST["envoyer"])) {
     //valider que le formulaire a bien été rempli
     if ($titre != "" && $texte != "") {
 
-        $ajout = ajoutArticle($titre, $texte, $idUsager);
-
-        if ($ajout) {
-            header("Location: listeEquipes.php");
+            $resultat = modifierArticle($titre, $texte, $idUsager);
+            header("Location: articles.php");
             die();
-        } else
-            $message = "Veuillez entrer les informations";
-    }
+    } 
+    else
+        $message = "Veuillez entrer les informations";
 }
 
 ?>

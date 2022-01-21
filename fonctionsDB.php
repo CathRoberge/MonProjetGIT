@@ -85,10 +85,10 @@
 
         while ($rangee = mysqli_fetch_assoc($resultat))
         {
-            echo "<div class='titre'><h2>" . htmlspecialchars($rangee["titre"]) . "</h2>";
+            echo "<div class='titre2'><div class='flex'><h2>" . htmlspecialchars($rangee["titre"]) . "</h2>";
             if($rangee["idUsager"] == $usager)
             {
-                echo "<div>
+                echo "<div class='titre'>
                     <div class='modif'>
                         <form action='modifierArticle.php' method='POST'>
                             <h3>
@@ -100,6 +100,7 @@
                             <h3><input type='hidden' name='titre' value='" . htmlspecialchars($rangee["titre"]) . "'><input type='submit' name='supprimer' value='supprimer'>
                             </h3>
                         </form>
+                        </div>
                     </div>
                     </div>";
             }
@@ -146,6 +147,14 @@
         {
             header("Location: articles.php?message=La suppression n'a pas fonctionné.");            
         }
+    }
+
+    function modifierArticle($titre, $texte, $idUsager)
+    {
+        global $connexion;
+
+        $requete = "UPDATE article SET titre=?, texte=? WHERE id=$idUsager";
+
     }
     
     

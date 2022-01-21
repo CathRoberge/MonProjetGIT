@@ -17,11 +17,11 @@ $usager = $_SESSION["usager"];
 
 <body>
     <header>
-        <h1>Mon blog</h1>
+        <h1><a href="articles.php">Mon blogue</a></h1>
         <form method="POST">
             <input type="text" name="recherche">
             <input type="submit" name="rechercher" value="rechercher"><br>
-            
+
         </form>
         <div class="connexion">
             <h3><a href="authentification.php">Connexion</a></h3>
@@ -31,10 +31,9 @@ $usager = $_SESSION["usager"];
     <p>Bonjour <?= htmlspecialchars($_SESSION["usager"]) ?></p>
     <div class="articles">
         <?php
-            if(!empty($_SESSION["usager"]))
-            {
-                echo "<div><h3><a href='ajoutArticle.php'>Ajouter un article</a></h3></div>";
-            }
+        if (!empty($_SESSION["usager"])) {
+            echo "<div><h3><a href='ajoutArticle.php'>Ajouter un article</a></h3></div>";
+        }
 
         /* Verfier que l'on arrive bien du formulaire et si celui-ci contient de l'information */
         if (isset($_POST["rechercher"])) {

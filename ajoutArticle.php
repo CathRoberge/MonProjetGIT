@@ -1,28 +1,28 @@
 <?php
 session_start();
 //ici j'inclu le fichier des fonctions et connexion à la base de donnée
-    require_once("fonctionsDB.php");
+require_once("fonctionsDB.php");
 
 //vérifier que l'on arrive du formulaire
-    if (isset($_POST["envoyer"])) {
-        $titre = trim($_POST["titre"]);
-        $texte = trim($_POST["article"]);
-        $idUsager = $_SESSION["usager"];
+if (isset($_POST["envoyer"])) {
+    $titre = trim($_POST["titre"]);
+    $texte = trim($_POST["article"]);
+    $idUsager = $_SESSION["usager"];
 
     //valider que le formulaire a bien été rempli
-        if ($titre != "" && $texte != "") 
+    if ($titre != "" && $texte != "") 
+    {
+
+        $ajout = ajoutArticle($titre, $texte, $idUsager);
+
+        if ($ajout) 
         {
-
-            $ajout = ajoutArticle($titre, $texte, $idUsager);
-
-            if ($ajout) 
-            {
             header("Location: articles.php");
             die();
-            } 
-            else
-                $message = "Veuillez entrer les informations";
-        }
+        } 
+    }
+    else
+        $message = "Veuillez entrer les informations";
 }
 
 ?>
@@ -45,7 +45,11 @@ session_start();
             <input type="text" name="titre">
             <h2>article</h2>
             <textarea name="article" id="article" cols="100" rows="10"></textarea><br>
-            <input type="submit" name="envoyer">
+            <input type="submit" name="envoyer" value="envoyer">
+            <?php
+            if (isset($message))
+                echo "<span>$message</span>";
+            ?>
         </form>
     </div>
 </body>
