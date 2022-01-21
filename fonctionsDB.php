@@ -2,7 +2,7 @@
     function connect()
     {
         //se connecter à la base de données
-        $connexion = mysqli_connect("localhost", "root", "", "tp2");
+        $connexion = mysqli_connect("localhost", "e0828186", "XFlpMnMkaGwtajm4iGH7", "tp2");
 
         if(!$connexion)
         {

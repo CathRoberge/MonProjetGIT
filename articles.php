@@ -28,7 +28,6 @@ $usager = $_SESSION["usager"];
             <h3><a href="deconnexion.php">Deconnexion</a></h3>
         </div>
     </header>
-    <p>Bonjour <?= htmlspecialchars($_SESSION["usager"]) ?></p>
     <div class="articles">
         <?php
         if (!empty($_SESSION["usager"])) {
