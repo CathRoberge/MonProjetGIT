@@ -26,7 +26,7 @@
     {
         global $connexion;
         // rediriger la requete
-        $requete = "SELECT * FROM usager WHERE nomUsager=? AND motDePasse=?";
+        $requete = "SELECT * FROM usager WHERE ID=? AND motDePasse=?";
         // préparer la requête
         $reqPrep = mysqli_prepare($connexion, $requete);
 
@@ -89,6 +89,24 @@
             <p>" . htmlspecialchars($rangee["texte"]) . "</p>
             <p>" . htmlspecialchars($rangee["idUsager"]) . "</p></div>";
         }
+    }
+
+    function ajoutArticle($titre, $texte, $idUsager)
+    {
+        global $connexion;
+
+        $requete = "INSERT INTO article (titre, texte, idUsager) VALUES (?, ?, ?)";
+        // exécution de la requête
+        $reqPrep = mysqli_prepare($connexion, $requete);
+        mysqli_stmt_bind_param($reqPrep, 'sss', $titre, $texte, $idUsager);
+        mysqli_stmt_execute($reqPrep);
+        mysqli_stmt_get_result($reqPrep);
+
+        $nombreAffecte = mysqli_affected_rows($connexion);
+        if ($nombreAffecte > 0)
+            return true;
+        else
+            return false;
     }
     
     

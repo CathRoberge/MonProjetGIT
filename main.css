@@ -8,12 +8,20 @@ h3 {
 }
 
 a {
+    color: seashell;
     text-decoration: none;
+    padding: 10px;
+    background-color: gray;
+    border-radius: 15px;
+}
+
+a:hover {
+    background-color: black;
 }
 
 span {
     color: red;
-    text-align: right;
+    text-align: center;
     font-style: italic;
 }
 
@@ -51,4 +59,9 @@ header {
     padding: 20px;
     max-width: 1000px;
     border-bottom: 2px solid;
+}
+
+.connexion {
+    display: flex;
+    gap: 10px;
 }

@@ -1,17 +1,27 @@
 <?php
+// ouverture de la session
+session_start();
+$message = "";
 //ici j'inclu le fichier des fonctions et connexion à la base de donnée
 require_once("fonctionsDB.php");
+
 // Si le formulaire à été rempli puis envoyé
 if (isset($_POST["connecter"])) {
-    if (!empty($_POST["usager"] && !empty($_POST["password"]))) {
+    if (!empty($_POST["usager"] && !empty($_POST["password"]))) 
+    {
         $test = login($_POST["usager"], $_POST["password"]);
 
-        if ($test) {
+        if ($test) 
+        {
+            $_SESSION["usager"] = $_POST["usager"];
             header("location: articles.php");
             die();
-        }
-    } else
+        } 
+        else
         $message = "Veuillez entrer un nom d'usager et mot de passe valide";
+    } 
+    else
+        $message = "Veuillez entrer un nom d'usager et mot de passe";
 }
 ?>
 <!DOCTYPE html>
