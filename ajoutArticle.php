@@ -17,7 +17,7 @@ session_start();
 
             if ($ajout) 
             {
-            header("Location: listeEquipes.php");
+            header("Location: articles.php");
             die();
             } 
             else
