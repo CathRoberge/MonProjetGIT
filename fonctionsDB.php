@@ -77,7 +77,7 @@
         }
 
 
-    function genereArticles()
+    function genereArticles($usager)
     {
         global $connexion;
         $requete = "SELECT * FROM article ORDER BY article.ID DESC ";
@@ -85,8 +85,25 @@
 
         while ($rangee = mysqli_fetch_assoc($resultat))
         {
-            echo "<div><h2>" . htmlspecialchars($rangee["titre"]) . "</h2>
-            <p>" . htmlspecialchars($rangee["texte"]) . "</p>
+            echo "<div class='titre'><h2>" . htmlspecialchars($rangee["titre"]) . "</h2>";
+            if($rangee["idUsager"] == $usager)
+            {
+                echo "<div>
+                    <div class='modif'>
+                        <form action='modifierArticle.php' method='POST'>
+                            <h3>
+                                <input type='hidden' name='titre' value='" . htmlspecialchars($rangee["titre"]) . "'>
+                                <input type='submit' name='modifier' value='Modifier'>
+                            </h3>
+                        </form>
+                        <form action='supprimer.php' method='POST'>
+                            <h3><input type='hidden' name='titre' value='" . htmlspecialchars($rangee["titre"]) . "'><input type='submit' name='supprimer' value='supprimer'>
+                            </h3>
+                        </form>
+                    </div>
+                    </div>";
+            }
+            echo "<p>" . htmlspecialchars($rangee["texte"]) . "</p>
             <p>" . htmlspecialchars($rangee["idUsager"]) . "</p></div>";
         }
     }
@@ -107,6 +124,28 @@
             return true;
         else
             return false;
+    }
+
+    function supprimerArticle($titre)
+    {
+        global $connexion;
+
+        $requete = "DELETE FROM article WHERE titre = $titre";
+
+        //3. appel de mysqli_query qui retourne true ou false dans le cas de l'insertion
+        $resultat = mysqli_query($connexion, $requete);
+
+        if($resultat)
+        {
+            if(mysqli_affected_rows($connexion) > 0)
+                header("Location: articles.php?message=Suppression réussie");
+            else
+                header("Location: articles.php");
+        }
+        else
+        {
+            header("Location: articles.php?message=La suppression n'a pas fonctionné.");            
+        }
     }
     
     
